@@ -25,7 +25,7 @@ export const Calculator = () => {
     };
 
     const calc = () => {
-        if (historyList.length === 0) return 0;
+        if (historyList.length === 0 && isEmpty(currentNumber)) return 0;
         const calcArr = [...historyList];
         if (!isEmpty(currentNumber)) {
             calcArr.push(currentNumber);
