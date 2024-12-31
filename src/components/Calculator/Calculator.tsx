@@ -1,4 +1,4 @@
-import {Button, Col, Input, Layout, Row, Typography} from 'antd';
+import {Badge, Button, Card, Col, Input, Layout, Row} from 'antd';
 import {useState} from 'react';
 import {isEmpty} from 'lodash';
 
@@ -39,49 +39,59 @@ export const Calculator = () => {
     };
 
     return (
-        <Layout
-            style={{
-                maxWidth: '550px',
-                margin: '0 auto',
-            }}
-        >
+        <Layout style={{maxWidth: '550px', margin: '0 auto'}}>
             <Layout.Content>
                 <Row gutter={[0, 8]}>
                     <Col span={24}>
-                        <Input size={'large'} value={currentNumber || '0'} disabled />
-                        <Typography>
-                            <p>{historyList.join(' ')}</p>
-                            <p>{calc()}</p>
-                        </Typography>
-                    </Col>
-                    <Col span={24}>
-                        <Input
-                            size={'large'}
-                            value={currentNumber}
-                            onChange={(e) => onChange(e.currentTarget.value)}
-                        />
-                    </Col>
-                    <Col span={20}>
-                        <Row gutter={[8, 8]}>
-                            {numberActions.map((n) => (
-                                <Col span={7} key={n}>
-                                    <Button onClick={() => onChange(n)} shape={'circle'} size={'large'}>
-                                        {n}
-                                    </Button>
-                                </Col>
-                            ))}
-                        </Row>
-                    </Col>
-                    <Col span={4}>
-                        <Row gutter={[8, 8]}>
-                            {mathActions.map((n) => (
-                                <Col span={24} key={n}>
-                                    <Button onClick={() => doAction(n)} shape={'circle'} size={'large'}>
-                                        {n}
-                                    </Button>
-                                </Col>
-                            ))}
-                        </Row>
+                        <Badge.Ribbon color={'green'}
+                                      text={`= ${calc()}`}>
+                            <Card title="Калькулятор"
+                                  size="default">
+                                <Layout.Content>
+                                    <Row gutter={[0, 8]}>
+                                        <Col span={24}>
+                                            <p>{historyList.join(' ') || '0'}</p>
+                                            <hr/>
+                                        </Col>
+                                        <Col span={24}>
+                                            <Input
+                                                size={'large'}
+                                                value={currentNumber}
+                                                onChange={(e) => onChange(e.currentTarget.value)}
+                                            />
+                                        </Col>
+                                        <Col span={20}>
+                                            <Row gutter={[8, 8]}>
+                                                {numberActions.map((n) => (
+                                                    <Col span={7}
+                                                         key={n}>
+                                                        <Button onClick={() => onChange(n)}
+                                                                shape={'circle'}
+                                                                size={'large'}>
+                                                            {n}
+                                                        </Button>
+                                                    </Col>
+                                                ))}
+                                            </Row>
+                                        </Col>
+                                        <Col span={4}>
+                                            <Row gutter={[8, 8]}>
+                                                {mathActions.map((n) => (
+                                                    <Col span={24}
+                                                         key={n}>
+                                                        <Button onClick={() => doAction(n)}
+                                                                shape={'circle'}
+                                                                size={'large'}>
+                                                            {n}
+                                                        </Button>
+                                                    </Col>
+                                                ))}
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                </Layout.Content>
+                            </Card>
+                        </Badge.Ribbon>
                     </Col>
                 </Row>
             </Layout.Content>
