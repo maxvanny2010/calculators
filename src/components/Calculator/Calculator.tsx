@@ -1,4 +1,4 @@
-import {Badge, Button, Card, Col, Input, Layout, Row} from 'antd';
+import {Badge, Button, Col, Input, Layout, Row, Typography} from 'antd';
 import {useState} from 'react';
 import {isEmpty} from 'lodash';
 
@@ -31,7 +31,7 @@ export const Calculator = () => {
             calcArr.push(currentNumber);
         }
         try {
-            const result = Function(`"use strict"; return (${calcArr.join(' ')})`)();
+            const result = Function('"use strict"; return (' + calcArr.join(' ') + ')')();
             return result || 0;
         } catch (e) {
             return 'Mistake';
@@ -42,56 +42,51 @@ export const Calculator = () => {
         <Layout style={{maxWidth: '550px', margin: '0 auto'}}>
             <Layout.Content>
                 <Row gutter={[0, 8]}>
+                    <Col span={20}>
+                        <Typography>
+                            <p>{historyList.join(' ') || '0'}</p>
+                        </Typography>
+                    </Col>
+                    <Col span={4}>
+                        <Typography>
+                            <Badge.Ribbon color={'green'}
+                                          text={`= ${calc()}`}/>
+                        </Typography>
+                    </Col>
                     <Col span={24}>
-                        <Badge.Ribbon color={'green'}
-                                      text={`= ${calc()}`}>
-                            <Card title="Калькулятор"
-                                  size="default">
-                                <Layout.Content>
-                                    <Row gutter={[0, 8]}>
-                                        <Col span={24}>
-                                            <p>{historyList.join(' ') || '0'}</p>
-                                            <hr/>
-                                        </Col>
-                                        <Col span={24}>
-                                            <Input
-                                                size={'large'}
-                                                value={currentNumber}
-                                                onChange={(e) => onChange(e.currentTarget.value)}
-                                            />
-                                        </Col>
-                                        <Col span={20}>
-                                            <Row gutter={[8, 8]}>
-                                                {numberActions.map((n) => (
-                                                    <Col span={7}
-                                                         key={n}>
-                                                        <Button onClick={() => onChange(n)}
-                                                                shape={'circle'}
-                                                                size={'large'}>
-                                                            {n}
-                                                        </Button>
-                                                    </Col>
-                                                ))}
-                                            </Row>
-                                        </Col>
-                                        <Col span={4}>
-                                            <Row gutter={[8, 8]}>
-                                                {mathActions.map((n) => (
-                                                    <Col span={24}
-                                                         key={n}>
-                                                        <Button onClick={() => doAction(n)}
-                                                                shape={'circle'}
-                                                                size={'large'}>
-                                                            {n}
-                                                        </Button>
-                                                    </Col>
-                                                ))}
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                </Layout.Content>
-                            </Card>
-                        </Badge.Ribbon>
+                        <Input
+                            size={'large'}
+                            value={currentNumber}
+                            onChange={(e) => onChange(e.currentTarget.value)}
+                        />
+                    </Col>
+                    <Col span={20}>
+                        <Row gutter={[8, 8]}>
+                            {numberActions.map((n) => (
+                                <Col span={7}
+                                     key={n}>
+                                    <Button onClick={() => onChange(n)}
+                                            shape={'circle'}
+                                            size={'large'}>
+                                        {n}
+                                    </Button>
+                                </Col>
+                            ))}
+                        </Row>
+                    </Col>
+                    <Col span={4}>
+                        <Row gutter={[8, 8]}>
+                            {mathActions.map((n) => (
+                                <Col span={24}
+                                     key={n}>
+                                    <Button onClick={() => doAction(n)}
+                                            shape={'circle'}
+                                            size={'large'}>
+                                        {n}
+                                    </Button>
+                                </Col>
+                            ))}
+                        </Row>
                     </Col>
                 </Row>
             </Layout.Content>
