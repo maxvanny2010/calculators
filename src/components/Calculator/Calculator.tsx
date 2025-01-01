@@ -34,7 +34,7 @@ export const Calculator = () => {
             const result = Function('"use strict"; return (' + calcArr.join(' ') + ')')();
             return result || 0;
         } catch (e) {
-            return 'Mistake';
+            return '';
         }
     };
 
